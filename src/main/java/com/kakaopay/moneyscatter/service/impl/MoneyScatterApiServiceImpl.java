@@ -1,5 +1,6 @@
 package com.kakaopay.moneyscatter.service.impl;
 
+import com.kakaopay.moneyscatter.exception.BadRequestException;
 import com.kakaopay.moneyscatter.exception.NotValidScatterException;
 import com.kakaopay.moneyscatter.manager.ScatterManager;
 import com.kakaopay.moneyscatter.model.http.GetScatterResponseBody;
@@ -38,6 +39,8 @@ public class MoneyScatterApiServiceImpl implements MoneyScatterApiService {
         // token 발급
         // 금액 분배
         // Pick에 저장
+        if (request.getNumberOfPerson() <= 0) throw new BadRequestException("At least a person needed");
+        if (request.getCost() < 0) throw new BadRequestException("Scatter cost have to be positive number");
         int cost = request.getCost();
         int nPerson = request.getNumberOfPerson();
         ScatterVo scatter = scatterManager.makeScatter(userId, nPerson, cost, roomId, requestedTime);

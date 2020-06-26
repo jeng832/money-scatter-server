@@ -1,5 +1,6 @@
 package com.kakaopay.moneyscatter.service;
 
+import com.kakaopay.moneyscatter.exception.BadRequestException;
 import com.kakaopay.moneyscatter.exception.NotValidScatterException;
 import com.kakaopay.moneyscatter.model.http.GetScatterResponseBody;
 import com.kakaopay.moneyscatter.model.http.PutScatterRequestBody;
@@ -29,6 +30,42 @@ public class MoneyScatterServiceTest {
         Assert.assertEquals(TokenProvider.getToken(roomId, userId, 1000, 10, time), token);
     }
 
+    @Test
+    public void testPutScatterWithNoMoney() {
+        int userId = 1;
+        String roomId = "A";
+        PutScatterRequestBody request = new PutScatterRequestBody(0, 10);
+        long time = System.currentTimeMillis();
+        String token = service.putScatter(userId, roomId, request, time);
+        Assert.assertEquals(TokenProvider.getToken(roomId, userId, 0, 10, time), token);
+    }
+
+    @Test(expected = BadRequestException.class)
+    public void testPutScatterWithNegativeMoney() {
+        int userId = 1;
+        String roomId = "A";
+        PutScatterRequestBody request = new PutScatterRequestBody(-10, 10);
+        long time = System.currentTimeMillis();
+        service.putScatter(userId, roomId, request, time);
+    }
+
+    @Test(expected = BadRequestException.class)
+    public void testPutScatterWithNoPeople() {
+        int userId = 1;
+        String roomId = "A";
+        PutScatterRequestBody request = new PutScatterRequestBody(10, 0);
+        long time = System.currentTimeMillis();
+        service.putScatter(userId, roomId, request, time);
+    }
+
+    @Test(expected = BadRequestException.class)
+    public void testPutScatterWithNegativeNumberPeople() {
+        int userId = 1;
+        String roomId = "A";
+        PutScatterRequestBody request = new PutScatterRequestBody(10, -1000);
+        long time = System.currentTimeMillis();
+        service.putScatter(userId, roomId, request, time);
+    }
     @Test
     public void testPostPick() {
         int userId = 1;

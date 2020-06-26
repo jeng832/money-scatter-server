@@ -1,5 +1,6 @@
 package com.kakaopay.moneyscatter.exception.handler;
 
+import com.kakaopay.moneyscatter.exception.BadRequestException;
 import com.kakaopay.moneyscatter.exception.NotValidScatterException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,13 @@ public class ScatterApiControllerAdvice {
     @ExceptionHandler(NotValidScatterException.class)
     protected ResponseEntity<?> handle(NotValidScatterException e) {
         logger.error("NotValidScatterException", e);
+        ErrorMessage em = new ErrorMessage(HttpStatus.BAD_REQUEST, e.getMessage());
+        return ResponseEntity.badRequest().body(em);
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    protected ResponseEntity<?> handle(BadRequestException e) {
+        logger.error("BadRequestException", e);
         ErrorMessage em = new ErrorMessage(HttpStatus.BAD_REQUEST, e.getMessage());
         return ResponseEntity.badRequest().body(em);
     }

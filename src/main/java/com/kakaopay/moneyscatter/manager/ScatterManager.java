@@ -134,7 +134,7 @@ public class ScatterManager {
         Random rand = new Random(totalCost + persons);
         int sum = 0;
         for (int i = 0; i < persons - 1; i++) {
-            money[i] = rand.nextInt(totalCost / persons);
+            money[i] = (totalCost / persons == 0) ? 0 : rand.nextInt(totalCost / persons);
             sum += money[i];
         }
         money[persons - 1] = totalCost - sum;
