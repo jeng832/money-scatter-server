@@ -146,10 +146,9 @@ public class ScatterManager {
 
     private void shuffleArray(int[] ar) {
         Random rand = new Random();
-        for (int i = ar.length - 1; i > 0; i--)
-        {
+        for (int i = ar.length - 1; i > 0; i--) {
             int index = rand.nextInt(i + 1);
-            // Simple swap
+            // swap
             int a = ar[index];
             ar[index] = ar[i];
             ar[i] = a;
