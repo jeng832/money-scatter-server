@@ -108,6 +108,7 @@ public class ScatterManager {
         }
         if (cost == -1) throw new NotValidScatterException("All Scatters are picked");
         List<Pick> picks = findScatter(scatter.getRoomId(), scatter.getToken()).getPicks();
+        if (picks == null) throw new NotValidScatterException("Not Valid scatter");
         for (Pick pick : picks) {
             if (pick.getEachCost() == cost) {
                 pick.setUserId(userId);
