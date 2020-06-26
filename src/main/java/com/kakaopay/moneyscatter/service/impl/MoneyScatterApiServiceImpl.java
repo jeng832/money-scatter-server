@@ -74,7 +74,6 @@ public class MoneyScatterApiServiceImpl implements MoneyScatterApiService {
         List<PickVo> picks = scatterManager.getScatterPick(roomId, token);
         if (scatter == null) throw new NotValidScatterException("Scatter is NOT valid");
         if (userId != scatter.getUserId()) throw new NotValidScatterException("You cannot search others money scatter");
-        if (scatterManager.isPickExpired(scatter, requestedTime)) throw new NotValidScatterException("Scatter is expired");
         if (scatterManager.isSearchExpired(scatter, requestedTime)) throw new NotValidScatterException("You cannot search older than 7 days");
 
         List<Picker> pickers = new ArrayList<>();
