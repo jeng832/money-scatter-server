@@ -2,10 +2,8 @@ package com.kakaopay.moneyscatter.controller;
 
 import com.kakaopay.moneyscatter.model.http.GetScatterResponseBody;
 import com.kakaopay.moneyscatter.model.http.PutScatterRequestBody;
-import com.kakaopay.moneyscatter.model.vo.ScatterVo;
 import com.kakaopay.moneyscatter.service.MoneyScatterApiService;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@ApiImplicitParams({
-    @ApiImplicitParam(name = "X-USER-ID", required = true, dataType = "Integer", paramType = "header"),
-    @ApiImplicitParam(name = "X-ROOM-ID", required = true, dataType = "String", paramType = "header")
-})
 public class ScatterApiController {
     private Logger logger = LoggerFactory.getLogger(ScatterApiController.class);
 
